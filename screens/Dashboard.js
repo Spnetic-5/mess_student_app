@@ -1,8 +1,6 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {ScrollView, StyleSheet, View, TouchableOpacity} from 'react-native'
 import CalendarPicker from 'react-native-calendar-picker';
-import SafeAreaView from 'react-native-safe-area-view'
-import CustomListItem from '../components/CustomListItem'
 import CustomTile from '../components/CustomTile';
 import {Text} from 'react-native-elements'
 import {FontAwesome5, Ionicons} from '@expo/vector-icons'
@@ -25,16 +23,24 @@ const Dashboard = ({navigation}) => {
   `;
 
   const UpperContainer = styled.View`
-    background-color: #311E15;
-    height: 18%;
+    background-color: #F9D7FF;
+    height: 25%;
     width: 100%;
-    border-radius: 30;
-    zIndex: 5;
   `;
+
+    const DayCell = ({ date }, style) => (
+        <View
+        style={[styles.dayContainer, style.container]}>
+        <Text style={style.text}>{`${date.getDate()}`}</Text>
+        <Text style={[style.text, styles.value]}>
+            {`${100 * date.getDate() + Math.pow(date.getDate(), 2)}$`}
+        </Text>
+        </View>
+    );
 
   return (
     <MainContainer>
-        <UpperContainer>
+        <UpperContainer style={styles.upper}>
         </UpperContainer>
         <View 
             style={{flexDirection: 'row', marginLeft: '10%', marginTop: '-18%', zIndex: 5}}>
@@ -84,6 +90,17 @@ const Dashboard = ({navigation}) => {
 export default Dashboard
 
 const styles = StyleSheet.create({
+    upper: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        width: '120%',
+        marginLeft: '-10%',
+        marginTop: '-15%', 
+        margin: 'auto',
+        borderRadius: 200,
+        zIndex: -2,
+        backgroundColor: '#311E15'
+      },
     attendance_text:{
         fontSize:22,
         marginTop:'15%',
@@ -96,10 +113,10 @@ const styles = StyleSheet.create({
         marginTop: '5%',
         paddingRight: '4%',
         paddingLeft:'4%',
-        // marginRight: '2%',
-        // marginLeft: '2%',
-        // borderColor:'#311E15',
-        // borderWidth: 2,
+        marginRight: '1%',
+        marginLeft: '1%',
+        borderColor:'#311E15',
+        borderWidth: 2,
         borderRadius: 20
     },
     stat_containers: {
