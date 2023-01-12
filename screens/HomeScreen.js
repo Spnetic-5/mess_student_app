@@ -2,8 +2,8 @@ import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, View, TouchableOpacity, Modal, Image, SafeAreaView, ScrollView} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import {StatusBar} from 'expo-status-bar'
-import {Feather, MaterialCommunityIcons, Ionicons, MaterialIcons} from '@expo/vector-icons'
-import CustomListItem from '../components/CustomListItem'
+import {Feather, MaterialCommunityIcons, Ionicons, MaterialIcons, Fontisto} from '@expo/vector-icons'
+import MenuTile from '../components/MenuTile'
 import styled from 'styled-components/native';
 // import { ScrollView } from 'react-native-gesture-handler'
 
@@ -27,7 +27,7 @@ const HomeScreen = ({navigation}) => {
   //   return unsubscribe
   // }, [])
 
-  const [totalBalance, setTotalBalance] = useState(0)
+  const [totalBalance, setTotalBalance] = useState('₹ 20,000')
   const [confirm, setConfirm] = useState(false)
   const [reset, setReset] = useState(false)
 
@@ -92,7 +92,7 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.card}>
             <View style={styles.cardTop}>
               <View style={{flexDirection: 'row', marginBottom: '5%'}}>
-                <Ionicons name='calendar-outline' size={24} color='#311E15' />
+                <Ionicons name='calendar' size={24} color='#311E15' />
                 <Text style={{marginLeft: '5%', color: '#311E15', fontSize: 20, fontWeight: 'bold'}}>
                   {days[today.getDay()]}
                 </Text>
@@ -102,71 +102,63 @@ const HomeScreen = ({navigation}) => {
               </View>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{color: '#311E15', fontWeight: '700', fontSize: 18 }}>
-                  Total Entries Today
+                  Remaining Balance
                 </Text>
-                <Ionicons name='people' size={24} color='#311E15' style={{marginLeft: '2%'}}/>
+                {/* <Ionicons name='people' size={24} color='#311E15' style={{marginLeft: '2%'}}/> */}
+                <Fontisto name="wallet" size={22} color="#311E15" style={{marginLeft: '2%'}}/>
               </View>
               <Text h3 style={{color: '#311E15'}}>
                 {totalBalance}
               </Text>
             </View>
           </View>
-          <View style={styles.recentTitle}>
-            <Text  style={{color: '#311E15', fontSize: 18, fontWeight: '500'}}>
-            {/* 🧑‍🏫️ */}
-              Recent Entries: 
-            </Text>
+          <View style={{flexDirection:'row', justifyContent: 'center', alignItems:'flex-end'}}>
+            <Text style={styles.menu_text}>Today's Menu </Text>
+            <MaterialCommunityIcons name="chef-hat" size={32} color="#311E15"/>
           </View>
-        {filter?.length > 0 ? (
-          <SafeAreaView style={styles.containerScroll}>
-          <ScrollView>
-            {filter?.map((info) => (
-              <View key={info.id}>
-                <CustomListItem
-                  info={info.data}
-                  id={info.id}
-                  rollno = {info.rollno}
-                  time = {info.time}
-                />
-              </View>
-            ))}
+          <ScrollView style={{marginBottom: '18%', marginTop:'5%'}}>
+            <MenuTile 
+              title='Breakfast'
+              menu='Poha, Cutlet and Tea'
+              image='breakfast'
+            />
+            <MenuTile 
+              title='Lunch'
+              menu='Aubergine, Chapati, Dal and Rice'
+              image='../assets/breakfast.png'
+            />
+            <MenuTile 
+              title='Dinner'
+              menu='Pav Bhaaji, Schezwan Fried Rice'
+              image='../assets/breakfast.png'
+            />
           </ScrollView>
-        </SafeAreaView>
-        ) : (
-          <View style={styles.containerNull}>
-          <Ionicons name='people' size={24} color='#311E15' />
-            <Text h5 style={{color: '#311E15'}}>
-              No Entries
-            </Text>
-          </View>
-        )}
-      {/* </View> */}     
-        <View style={styles.addButton}>
-          <TouchableOpacity
-            style={{marginLeft: '-10%'}}
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('Dashboard')}
-          >
-            {/* <Ionicons name='ios-home' size={30} color='#FFFFFF' /> */}
-            <Ionicons name='ios-stats-chart-outline' size={28} color='#FFFFFF' />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{marginRight: '-10%'}}
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('All')}
-          >
-            <MaterialIcons name='restaurant-menu' size={30} color='#FFFFFF' />
-          </TouchableOpacity>
-        </View>
-        <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: 'white', alignSelf: 'center', top: '85%', position:'absolute'}}>
-          <TouchableOpacity
-              style={styles.plusButton}
-              onPress={() => navigation.navigate('QRGen')}
+          <View style={styles.addButton}>
+            <TouchableOpacity
+              style={{marginLeft: '-10%'}}
               activeOpacity={0.5}
+              onPress={() => navigation.navigate('Dashboard')}
             >
-            <Ionicons name='md-qr-code-outline' size={32} color='#FFFFFF' />
-          </TouchableOpacity>
-        </View>
+              {/* <Ionicons name='ios-home' size={30} color='#FFFFFF' /> */}
+              <Ionicons name='ios-stats-chart-outline' size={28} color='#FFFFFF' />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{marginRight: '-10%'}}
+              activeOpacity={0.5}
+              onPress={() => navigation.navigate('All')}
+            >
+              <MaterialIcons name='restaurant-menu' size={30} color='#FFFFFF' />
+            </TouchableOpacity>
+          </View>
+          <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: 'white', alignSelf: 'center', top: '85%', position:'absolute'}}>
+            <TouchableOpacity
+                style={styles.plusButton}
+                onPress={() => navigation.navigate('QRGen')}
+                activeOpacity={0.5}
+              >
+              <Ionicons name='md-qr-code-outline' size={32} color='#FFFFFF' />
+            </TouchableOpacity>
+          </View>
       </MainContainer>
     </>
   )
@@ -181,6 +173,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     padding: 10,
+  },
+
+  menu_text: {
+    fontSize: 26,
+    // textAlign: 'center',
+    marginTop: '4%'
   },
 
   fullName: {
@@ -321,22 +319,6 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
 
-  no: {
-    width: '80%',
-    backgroundColor: 'green',
-    height: 50,
-    borderRadius: 20,
-    marginTop: '15%',
-  },
-
-  yes: {
-    width: '80%',
-    backgroundColor: 'red',
-    height: 50,
-    borderRadius: 20,
-    marginTop: '15%',
-  },
-  
   containerScroll: {
     backgroundColor: 'white',
     padding: 0,

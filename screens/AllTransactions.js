@@ -4,8 +4,10 @@ import SafeAreaView from 'react-native-safe-area-view'
 // import {SafeAreaView} from 'react-native-safe-area-context'
 import CustomListItem from '../components/CustomListItem'
 import {Text} from 'react-native-elements'
-import {FontAwesome5, Ionicons} from '@expo/vector-icons'
+import {FontAwesome5, Ionicons, Entypo} from '@expo/vector-icons'
 import styled from 'styled-components/native';
+import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
+// import { Separator } from 'native-base';
 
 const AllTransactions = ({navigation}) => {
   useLayoutEffect(() => {
@@ -29,10 +31,7 @@ const AllTransactions = ({navigation}) => {
 
   //   return unsubscribe
   // }, [])
-  const [filter, setFilter] = useState([
-    {id: '1', data: 'Saurabh Powar', rollno: '191060053', time: '14:23'}, 
-    {id: '2', data: 'Saurabh Powar', rollno: '191060058', time: '12:40'}
-  ])
+ 
   // useEffect(() => {
   //   if (transactions) {
   //     setFilter(
@@ -58,6 +57,42 @@ const AllTransactions = ({navigation}) => {
     zIndex: 5;
   `;
 
+  
+    const list = [
+        {
+          id:1,
+          title: 'Breakfast',
+          body: "['Poha', 'Upma']"
+        },
+        {
+          id:2,
+          title: 'Lunch',
+          body: "['Poha', 'Upma']"
+        },
+        {
+          id:3,
+          title: 'Dinner',
+          body: "['Poha', 'Upma']"
+        }
+    ]
+  
+  const head = (item) =>{
+      return(
+          <View style={styles.head_container}>
+            <Text style={{fontSize: 25, flex: 7}}>{item.title}</Text>
+            <Entypo name="arrow-with-circle-down" size={30} color="black" style={{flex: 1,}}/>
+          </View>
+      );
+  }
+  
+  const body = (item) => {
+      return (
+          <View>
+            <Text>{item.body}</Text>
+          </View>
+      );
+  }
+
   return (
     <MainContainer>
        <UpperContainer>
@@ -72,32 +107,17 @@ const AllTransactions = ({navigation}) => {
         </TouchableOpacity>
 
         <Text style={{color: '#F3DACC', fontWeight: 'bold', fontSize: 24, flex:1, textAlign:'center', marginRight:'15%' }}>
-          All Entries
+          Week's Menus
         </Text>
       </View>
-      {filter?.length > 0 ? (
-        <SafeAreaView style={styles.container}>
-          <ScrollView>
-            {filter?.map((info) => (
-              <View key={info.id}>
-                <CustomListItem
-                  info={info.data}
-                  id={info.id}
-                  rollno = {info.rollno}
-                  time = {info.time}
-                />
-              </View>
-            ))}
-          </ScrollView>
-        </SafeAreaView>
-      ) : (
-        <View style={styles.containerNull}>
-          <FontAwesome5 name='list-alt' size={24} color='#8B6C5B' />
-          <Text h4 style={{color: '#8B6C5B'}}>
-            No Transactions
-          </Text>
-        </View>
-      )}
+      <Text>Jjc</Text>
+      <AccordionList
+            list={list}
+            header={head}
+            body={body}
+            keyExtractor={item => `${item.id}`}
+            style={styles.accordian_container}
+          />
     </MainContainer>
   )
 }
@@ -119,4 +139,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  accordian_container: {
+    marginTop: '20%'
+  },
+  head_container: {
+    marginLeft: '7%',
+    marginRight: '7%',
+    height: 60,
+    marginBottom: '3%',
+    // justifyContent: 'center',
+    flexDirection: 'row',
+    // alignSelf: 'space-between'
+  }
 })
