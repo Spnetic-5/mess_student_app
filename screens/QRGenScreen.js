@@ -12,7 +12,7 @@ import { Permissions } from 'expo';
 
 export default function QRScanner() {
   const navigation = useNavigation();
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState(0);
   const [wantChicken, setWantChicken] = useState(false);
   const [chickenCount, setChickenCount] = useState(0);
 

@@ -91,23 +91,23 @@ const HomeScreen = ({navigation}) => {
           </UpperContainer>
           <View style={styles.card}>
             <View style={styles.cardTop}>
-              <View style={{flexDirection: 'row', marginBottom: '5%'}}>
+              <View style={{flexDirection: 'row', marginTop: '2%'}}>
                 <Ionicons name='calendar' size={24} color='#311E15' />
-                <Text style={{marginLeft: '5%', color: '#311E15', fontSize: 20, fontWeight: 'bold'}}>
+                <Text style={{marginLeft: '5%', marginTop: 2, color: '#311E15', fontSize: 18, fontWeight: 'bold'}}>
                   {days[today.getDay()]}
                 </Text>
-                <Text style={{marginLeft: '5%', color: '#311E15', fontSize: 20}}>
+                <Text style={{marginLeft: '5%', marginTop: 2, color: '#311E15', fontSize: 18}}>
                   {date}
                 </Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={{color: '#311E15', fontWeight: '700', fontSize: 18 }}>
-                  Remaining Balance
+              <View style={{flexDirection: 'row', marginTop: '4%'}}>
+                <Text style={{color: '#311E15', fontWeight: '600', fontSize: 20 }}>
+                  Deposit Balance
                 </Text>
                 {/* <Ionicons name='people' size={24} color='#311E15' style={{marginLeft: '2%'}}/> */}
                 <Fontisto name="wallet" size={22} color="#311E15" style={{marginLeft: '2%'}}/>
               </View>
-              <Text h3 style={{color: '#311E15'}}>
+              <Text h3 style={{color: '#311E15', marginTop: 10}}>
                 {totalBalance}
               </Text>
             </View>
@@ -116,7 +116,7 @@ const HomeScreen = ({navigation}) => {
             <Text style={styles.menu_text}>Today's Menu </Text>
             <MaterialCommunityIcons name="chef-hat" size={32} color="#311E15"/>
           </View>
-          <ScrollView style={{marginBottom: '18%', marginTop:'5%'}}>
+          <ScrollView style={{marginTop:'2%'}}>
             <MenuTile 
               title='Breakfast'
               menu='Poha, Cutlet and Tea'
@@ -201,6 +201,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#F3DACC',
     width: '85%',
+    height: '20%',
     padding: 10,
     borderRadius: 10,
     shadowColor: '#FFFFFF',
