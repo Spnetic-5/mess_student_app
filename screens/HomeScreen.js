@@ -2,7 +2,7 @@ import React, {useEffect, useLayoutEffect, useState} from 'react'
 import {StyleSheet, View, TouchableOpacity, Modal, Image, SafeAreaView, ScrollView} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import {StatusBar} from 'expo-status-bar'
-import {Feather, MaterialCommunityIcons, Ionicons} from '@expo/vector-icons'
+import {Feather, MaterialCommunityIcons, Ionicons, MaterialIcons} from '@expo/vector-icons'
 import CustomListItem from '../components/CustomListItem'
 import styled from 'styled-components/native';
 // import { ScrollView } from 'react-native-gesture-handler'
@@ -105,10 +105,6 @@ const HomeScreen = ({navigation}) => {
                   Total Entries Today
                 </Text>
                 <Ionicons name='people' size={24} color='#311E15' style={{marginLeft: '2%'}}/>
-
-                {/* <Text style={{marginLeft: 5, color: '#000000', fontSize: 20 }}>
-                  :
-                </Text> */}
               </View>
               <Text h3 style={{color: '#311E15'}}>
                 {totalBalance}
@@ -118,7 +114,7 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.recentTitle}>
             <Text  style={{color: '#311E15', fontSize: 18, fontWeight: '500'}}>
             {/* 🧑‍🏫️ */}
-              Recent Entries 🧑‍🤝‍🧑️: 
+              Recent Entries: 
             </Text>
           </View>
         {filter?.length > 0 ? (
@@ -149,17 +145,17 @@ const HomeScreen = ({navigation}) => {
           <TouchableOpacity
             style={{marginLeft: '-10%'}}
             activeOpacity={0.5}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Dashboard')}
           >
             {/* <Ionicons name='ios-home' size={30} color='#FFFFFF' /> */}
-            <Ionicons name='ios-home-outline' size={30} color='#FFFFFF' />
+            <Ionicons name='ios-stats-chart-outline' size={28} color='#FFFFFF' />
           </TouchableOpacity>
           <TouchableOpacity
             style={{marginRight: '-10%'}}
             activeOpacity={0.5}
             onPress={() => navigation.navigate('All')}
           >
-            <Feather name='list' size={30} color='#FFFFFF' />
+            <MaterialIcons name='restaurant-menu' size={30} color='#FFFFFF' />
           </TouchableOpacity>
         </View>
         <View style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: 'white', alignSelf: 'center', top: '85%', position:'absolute'}}>

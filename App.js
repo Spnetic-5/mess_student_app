@@ -10,6 +10,7 @@ import AddDetailsScreen from './screens/AddDetailsScreen'
 import UpdateScreen from './screens/UpdateScreen'
 import QRGenScreen from './screens/QRGenScreen'
 import AllTransactions from './screens/AllTransactions'
+import Dashboard from './screens/Dashboard'
 
 
 const Stack = createStackNavigator()
@@ -27,6 +28,7 @@ export default function App() {
         <Stack.Screen name='QRGen' component={QRGenScreen} />
         <Stack.Screen name='Update' component={UpdateScreen} />
         <Stack.Screen name='All' component={AllTransactions} />
+        <Stack.Screen name='Dashboard' component={Dashboard} />
       </Stack.Navigator>
     </NavigationContainer>
   )
