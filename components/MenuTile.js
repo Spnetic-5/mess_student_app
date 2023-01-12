@@ -3,6 +3,11 @@ import {StyleSheet, View, Image} from 'react-native'
 import {ListItem, Text, Divider} from 'react-native-elements'
 
 const MenuTile = ({title, menu, image}) => {
+  const imageList = {
+    0: require('../assets/breakfast.png'),
+    1: require('../assets/lunch.png'),
+    2: require('../assets/dinner.png')
+  }
   return (
     <>
       <View>
@@ -20,7 +25,7 @@ const MenuTile = ({title, menu, image}) => {
             <View> 
                 <Image 
                     style={styles.image_container} 
-                    source={require('../assets/breakfast.png')}>
+                    source={imageList[image]}>
                 </Image>
             </View>
         </ListItem>

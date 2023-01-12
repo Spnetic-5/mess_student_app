@@ -3,7 +3,7 @@ import {ScrollView, StyleSheet, View, TouchableOpacity} from 'react-native'
 import CalendarPicker from 'react-native-calendar-picker';
 import CustomTile from '../components/CustomTile';
 import {Text} from 'react-native-elements'
-import {FontAwesome5, Ionicons} from '@expo/vector-icons'
+import {Ionicons} from '@expo/vector-icons'
 import styled from 'styled-components/native';
 
 const Dashboard = ({navigation}) => {
@@ -55,7 +55,7 @@ const Dashboard = ({navigation}) => {
         </Text>
         </View>
         <Text style={styles.attendance_text}>Mess Attendance</Text>   
-        <View style={styles.container}> 
+        {/* <View style={styles.container}> 
             <CalendarPicker
                 startFromMonday={true}
                 showDayStragglers={true}
@@ -63,7 +63,7 @@ const Dashboard = ({navigation}) => {
                 selectedDayTextColor='white'
                 todayBackgroundColor='#311E15'
             />
-        </View>
+        </View> */}
         <View style={styles.stat_containers}>
             <CustomTile
                 title='Total Meals'
@@ -80,7 +80,7 @@ const Dashboard = ({navigation}) => {
         <CustomTile
             title='Total Extra Dishes'
             number='3'
-            icon='set-meal'
+            icon='food-turkey'
         />
         </View>
     </MainContainer>
