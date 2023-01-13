@@ -75,8 +75,8 @@ const Dashboard = ({navigation}) => {
                 Dashboard
             </Text>
             </View>
-            <Text style={styles.attendance_text}>Mess Attendance</Text>
-            <View style={{marginLeft: '2%', marginRight:'2%'}}>
+            {/* <Text style={styles.attendance_text}>Mess Attendance</Text> */}
+            <View style={{marginLeft: '4%', marginRight:'4%', marginTop: '9%'}}>
                 <Calendar
                     onDayPress={onDayPress}
                     markedDates={markedDates}
@@ -108,6 +108,13 @@ const Dashboard = ({navigation}) => {
                     }}
                 />
             </View>
+            <View style={styles.month_containers}>
+                <CustomTile
+                    title="Month's Expense"
+                    number='4,500'
+                    icon='money'
+                />
+            </View>
             <View style={styles.stat_containers}>
                 <CustomTile
                     title='Total Meals'
@@ -121,11 +128,11 @@ const Dashboard = ({navigation}) => {
                 />
             </View>
             <View style={styles.stat_containers}>
-            <CustomTile
-                title='Total Extra Dishes'
-                number='3'
-                icon='food-turkey'
-            />
+                <CustomTile
+                    title='Total Extra Dishes'
+                    number='3'
+                    icon='food-turkey'
+                />
             </View>
         </MainContainer>
     )
@@ -169,9 +176,18 @@ const styles = StyleSheet.create({
         marginLeft: '3%',
         marginRight: '3%',
         justifyContent: 'space-around',
-        marginTop: '5%',
-        // backgroundColor: 'pink',
+        marginTop: '3%',
         maxHeight: '10%'
+    },
+    month_containers: {
+        flex: 1,
+        flexDirection: 'row',
+        marginLeft: '1%',
+        marginRight: '1%',
+        justifyContent: 'space-around',
+        marginTop: '3%',
+        marginBottom: '4%',
+        maxHeight: '10%',
     },
     calendar: {
         marginTop: '4%',

@@ -12,6 +12,7 @@ import QRGenScreen from './screens/QRGenScreen'
 import AllTransactions from './screens/AllTransactions'
 import Dashboard from './screens/Dashboard'
 import LoginScreen from './screens/LoginScreen'
+import RegisterScreen from './screens/RegisterScreen'
 
 const Stack = createStackNavigator()
 
@@ -24,6 +25,7 @@ export default function App() {
       <StatusBar style='light' />
       <Stack.Navigator screenOptions={globalScreenOptions}>
         <Stack.Screen name='Login' component={LoginScreen}/>
+        <Stack.Screen name='Register' component={RegisterScreen} />
         <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='AddDetails' component={AddDetailsScreen} />
         <Stack.Screen name='QRGen' component={QRGenScreen} />

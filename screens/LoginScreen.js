@@ -63,7 +63,9 @@ const LoginScreen = ({navigation}) => {
             style={{
               height: 500,
               top: '-7%',
-              resizeMode: 'contain'
+              resizeMode: 'contain',
+              padding: '5%',
+              marginTop: '3%'
             }}
             source={require('../assets/hostel_mess.png')}
           />
@@ -99,7 +101,7 @@ const LoginScreen = ({navigation}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.cancel}
-                // onPress={() => navigation.navigate('Register')}
+                onPress={() => navigation.navigate('Register')}
               >
               <Text style={{color: '#000000', padding: 15, marginLeft: 15}}> Register </Text>
               </TouchableOpacity>
