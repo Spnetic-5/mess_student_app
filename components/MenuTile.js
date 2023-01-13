@@ -3,6 +3,11 @@ import {StyleSheet, View, Image} from 'react-native'
 import {ListItem, Text, Divider} from 'react-native-elements'
 
 const MenuTile = ({title, menu, image}) => {
+  const imageList = {
+    0: require('../assets/breakfast.png'),
+    1: require('../assets/lunch.png'),
+    2: require('../assets/dinner.png')
+  }
   return (
     <>
       <View>
@@ -20,7 +25,7 @@ const MenuTile = ({title, menu, image}) => {
             <View> 
                 <Image 
                     style={styles.image_container} 
-                    source={require('../assets/breakfast.png')}>
+                    source={imageList[image]}>
                 </Image>
             </View>
         </ListItem>
@@ -35,19 +40,20 @@ const styles = StyleSheet.create({
   container:{
     borderRadius: 20, 
     width: '85%', 
+    // height: '50%',
     marginLeft: '7.5%', 
     justifyContent: 'center',
     // backgroundColor:'pink',
-    marginBottom: '5%',
+    marginBottom: '2%',
     elevation: 50,
-    shadowColor: '#000',
+    shadowColor: '#AAA',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 2,
   },
   image_container: {
     resizeMode: 'contain', 
-    height: 120, 
+    height: 75, 
     width: 100, 
     alignSelf:'flex-end', 
     marginLeft: '5%', 

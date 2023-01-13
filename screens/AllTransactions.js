@@ -7,6 +7,7 @@ import {Text} from 'react-native-elements'
 import {FontAwesome5, Ionicons, Entypo} from '@expo/vector-icons'
 import styled from 'styled-components/native';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
+import MenuTile from '../components/MenuTile'
 // import { Separator } from 'native-base';
 
 const AllTransactions = ({navigation}) => {
@@ -15,32 +16,6 @@ const AllTransactions = ({navigation}) => {
       title: 'All Entries',
     })
   }, [])
-  // const [transactions, setTransactions] = useState([])
-  // useEffect(() => {
-  //   const unsubscribe = db
-  //     .collection('expense')
-  //     .orderBy('timestamp', 'desc')
-  //     .onSnapshot((snapshot) =>
-  //       setTransactions(
-  //         snapshot.docs.map((doc) => ({
-  //           id: doc.id,
-  //           data: doc.data(),
-  //         }))
-  //       )
-  //     )
-
-  //   return unsubscribe
-  // }, [])
- 
-  // useEffect(() => {
-  //   if (transactions) {
-  //     setFilter(
-  //       transactions.filter(
-  //         (transaction) => transaction.data.email === auth.currentUser.email
-  //       )
-  //     )
-  //   }
-  // }, [transactions])
 
   const MainContainer = styled.View`
     background-color: 'white';
@@ -57,22 +32,55 @@ const AllTransactions = ({navigation}) => {
     zIndex: 5;
   `;
 
-  
     const list = [
         {
           id:1,
-          title: 'Breakfast',
-          body: "['Poha', 'Upma']"
+          title: 'Monday',
+          breakfast: "Pohe, Bananas",
+          lunch: "Chavli Bhaji, Varan Bhaat",
+          dinner: "Flower Bhaji, Varan Bhaat"
         },
         {
           id:2,
-          title: 'Lunch',
-          body: "['Poha', 'Upma']"
+          title: 'Tuesday',
+          breakfast: "Idli Sambhar",
+          lunch: "Matki Usal, Varan Bhaat",
+          dinner: "Palak Paneer"
         },
         {
           id:3,
-          title: 'Dinner',
-          body: "['Poha', 'Upma']"
+          title: 'Wednesday',
+          breakfast: "Bread Pakoda",
+          lunch: "Egg Curry, Cabbage",
+          dinner: "Doodhi Bhopala"
+        },
+        {
+          id:4,
+          title: 'Thursday',
+          breakfast: "Sabudana Wada, Maggi",
+          lunch: "Batata Bhaji",
+          dinner: "Flower Bhaji, Varan Bhaat"
+        },
+        {
+          id:5,
+          title: 'Friday',
+          breakfast: "Medu Wada",
+          lunch: "Chicken, Usal",
+          dinner: "Palak Paneer"
+        },
+        {
+          id:6,
+          title: 'Saturday',
+          breakfast: "Dosa Sambhar",
+          lunch: "Aloo Gobi",
+          dinner: "Chavli Bhaji, Varan Bhaat"
+        },
+        {
+          id:7,
+          title: 'Sunday',
+          breakfast: "Misal Pav",
+          lunch: "Pav Bhaji",
+          dinner: "Egg Curry"
         }
     ]
   
@@ -80,15 +88,29 @@ const AllTransactions = ({navigation}) => {
       return(
           <View style={styles.head_container}>
             <Text style={{fontSize: 25, flex: 7}}>{item.title}</Text>
-            <Entypo name="arrow-with-circle-down" size={30} color="black" style={{flex: 1,}}/>
+            <Entypo name="chevron-down" size={30} color="black" style={{flex: 1,}}/>
           </View>
       );
   }
   
   const body = (item) => {
       return (
-          <View>
-            <Text>{item.body}</Text>
+          <View style={styles.body_container}>
+            <MenuTile
+              title='Breakfast'
+              menu={item.breakfast}
+              image={0}
+            />
+            <MenuTile
+              title='Lunch'
+              menu={item.lunch}
+              image={1}
+            />
+            <MenuTile
+              title='Dinner'
+              menu={item.dinner}
+              image={2}
+            />
           </View>
       );
   }
@@ -110,7 +132,6 @@ const AllTransactions = ({navigation}) => {
           Week's Menus
         </Text>
       </View>
-      <Text>Jjc</Text>
       <AccordionList
             list={list}
             header={head}
@@ -128,10 +149,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     padding: 0,
-    marginTop: '10%',
+    marginTop: '6%',
     height: '100%',
     flex: 1,
-    paddingTop: '5%'
+    // paddingTop: '5%'
   },
   containerNull: {
     flex: 1,
@@ -147,8 +168,29 @@ const styles = StyleSheet.create({
     marginRight: '7%',
     height: 60,
     marginBottom: '3%',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     flexDirection: 'row',
-    // alignSelf: 'space-between'
+    backgroundColor: '#F3DACC',
+    flex: 1,
+    paddingTop: '4%',
+    borderRadius: 20, 
+    paddingLeft: '7%',
+    paddingRight: '4%',
+    elevation: 100,
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+  },
+  body_container: {
+    marginLeft: '7%',
+    marginRight: '7%',
+    backgroundColor: '#F3DACC',
+    marginBottom: '4%',
+    marginTop: '-7%',
+    height: 350,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    paddingTop: '5%'
   }
 })

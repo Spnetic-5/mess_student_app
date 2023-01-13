@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import {ListItem, Text, Divider} from 'react-native-elements'
-import {FontAwesome5, Ionicons, MaterialIcons} from '@expo/vector-icons'
+import {FontAwesome5, MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons'
 
 const CustomTile = ({title, number, icon}) => {
   return (
@@ -15,7 +15,13 @@ const CustomTile = ({title, number, icon}) => {
                 >
                 {title}
                 </ListItem.Title>
-                <MaterialIcons name={icon} size={24} color='#311E15' style={{ alignSelf: 'center'}}/>
+                {
+                  icon !== 'food-turkey' ?
+                  (<MaterialIcons name={icon} size={24} color='#311E15' style={{ alignSelf: 'center'}}/> ) :
+                  (
+                    <MaterialCommunityIcons name={icon} size={30} color='#311E15' style={{ alignSelf: 'center'}} />
+                  )
+                }
             </View>
             <ListItem.Subtitle style={{color: '#222222', alignSelf:'center', fontSize: 16}}>
               {number}
