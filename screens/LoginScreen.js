@@ -8,25 +8,26 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState('')
   const [submitLoading, setSubmitLoading] = useState(false)
 
-//   const signIn = () => {
-//     if (email && setEmail) {
-//       setSubmitLoading(true)
-//       auth
-//         .signInWithEmailAndPassword(email, password)
-//         .then(() => clearInputFields())
-//         .catch((error) => alert(error.message) & setSubmitLoading(false))
-//     } else {
-//       alert('All fields are mandatory')
-//       setSubmitLoading(false)
-//     }
-//   }
-//   const clearInputFields = () => {
-//     // alert('Successfully Logged in')
-//     navigation.replace('Home')
-//     setSubmitLoading(false)
-//     setEmail('')
-//     setPassword('')
-//   }
+  const signIn = () => {
+    navigation.replace('Home')
+    // if (email && setEmail) {
+    //   setSubmitLoading(true)
+    //   auth
+    //     .signInWithEmailAndPassword(email, password)
+    //     .then(() => clearInputFields())
+    //     .catch((error) => alert(error.message) & setSubmitLoading(false))
+    // } else {
+    //   alert('All fields are mandatory')
+    //   setSubmitLoading(false)
+    // }
+  }
+  // const clearInputFields = () => {
+  //   // alert('Successfully Logged in')
+  //   navigation.replace('Home')
+  //   setSubmitLoading(false)
+  //   setEmail('')
+  //   setPassword('')
+  // }
 
   const [loading, setLoading] = useState(false)
 
@@ -66,41 +67,41 @@ const LoginScreen = ({navigation}) => {
             }}
             source={require('../assets/hostel_mess.png')}
           />
-          <View style={{alignItems: 'center', top: '-5%'}}>
-            <Text style={{fontSize: 24, fontWeight: '700', color: '#311E15',}}> VJTI Mess </Text>
+          <View style={{alignItems: 'center', top: '-10%'}}>
+            <Text style={{fontSize: 26, fontWeight: '700', color: '#311E15',}}> VJTI Mess </Text>
             <View style={styles.inputContainer}>
               <TextInput
-                style={{color: '#FFFFFF', fontSize: 18, marginTop: 10, borderWidth: 1, borderRadius: 10, height: 40, padding: 10, borderColor: '#FAC7FF'}}
+                style={{color: '#311E15', fontSize: 18, marginTop: 10, borderWidth: 1, borderRadius: 10, height: 40, padding: 10, borderColor: '#311E15'}}
                 type='email'
-                placeholder='Email ID'
-                placeholderTextColor={'#FAC7FF'}
+                placeholder='Mess ID'
+                placeholderTextColor={'#311E15'}
                 value={email}
                 onChangeText={(text) => setEmail(text)}
               />
               <TextInput
                 type='password'
-                style={{color: '#FFFFFF', fontSize: 18, marginTop: 15, marginBottom: 10, borderWidth: 1, borderRadius: 10, height: 40, padding: 10, borderColor: '#FAC7FF'}}
+                style={{color: '#000000', fontSize: 18, marginTop: 15, marginBottom: 10, borderWidth: 1, borderRadius: 10, height: 40, padding: 10, borderColor: '#311E15'}}
                 secureTextEntry
                 placeholder='Password'
-                placeholderTextColor={'#FAC7FF'}
+                placeholderTextColor={'#311E15'}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
                 // onSubmitEditing={signIn}
               />
             </View>
-            <View style={{flexDirection: 'row', marginTop: '4%'}}>
+            <View style={{flexDirection: 'row', marginTop: '-2%'}}>
               <TouchableOpacity
                 style={styles.add}
                 loading={submitLoading}
-                // onPress={signIn}
+                onPress={signIn}
               > 
-              <Text style={{color: '#FAC7FF', padding: 15, marginLeft: 15}}> Login </Text>
+              <Text style={{color: 'white', padding: 15, marginLeft: 20}}> Login </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.cancel}
                 // onPress={() => navigation.navigate('Register')}
               >
-              <Text style={{color: '#000000', padding: 15, marginLeft: 5}}> Register </Text>
+              <Text style={{color: '#000000', padding: 15, marginLeft: 15}}> Register </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -129,28 +130,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
   },
   inputContainer: {
     width: 300,
-    backgroundColor: '#000000',
+    backgroundColor: '#FFFFFF',
     padding: 15,
     borderRadius: 20,
   },
   add: {
-    width: 100,
-    backgroundColor: '#402243',
+    width: 120,
+    backgroundColor: '#311E15',
     height: 50,
     borderRadius: 20
   },
   cancel: {
-    width: 100,
+    width: 120,
     backgroundColor: '#FFFFFF',
     height: 50,
     borderRadius: 20,
     borderColor: '#402243',
     borderWidth: 1,
     color: '#402243',
-    marginLeft: 50
+    marginLeft: 30
   },
 })

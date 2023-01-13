@@ -23,7 +23,7 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style='light' />
       <Stack.Navigator screenOptions={globalScreenOptions}>
-        {/* <Stack.Screen name='Login' component={LoginScreen}/> */}
+        <Stack.Screen name='Login' component={LoginScreen}/>
         <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='AddDetails' component={AddDetailsScreen} />
         <Stack.Screen name='QRGen' component={QRGenScreen} />
