@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -9,6 +9,7 @@ import {
   Keyboard,
   Modal,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { Text } from "react-native-elements";
 import axios from "axios";
 import { host } from "../ip";
@@ -22,6 +23,9 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const ref_input2 = useRef();
+  const ref_input3 = useRef();
+  const ref_input4 = useRef();
 
   useLayoutEffect(() => {
     Keyboard.dismiss();
@@ -97,7 +101,7 @@ const RegisterScreen = ({ navigation }) => {
       </Modal> */}
       <Image
         style={{
-          height: 250,
+          height: 280,
           resizeMode: "contain",
         }}
         source={require("../assets/hostel_mess.png")}
@@ -117,38 +121,47 @@ const RegisterScreen = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={{ color: "#000000", fontSize: 18, marginTop: 10 }}
-          placeholderTextColor={"#F3DACC"}
+          placeholderTextColor={"#311E15"}
           placeholder="First Name"
           type="text"
           autoFocus
           value={first}
           onChangeText={(text) => setFirstName(text)}
+          cursorColor= '#311E15'
+          onSubmitEditing={() => ref_input2.current.focus()}
         />
         <TextInput
           style={{ color: "#000000", fontSize: 18, marginTop: 20 }}
-          placeholderTextColor={"#F3DACC"}
+          placeholderTextColor={"#311E15"}
           placeholder="Last Name"
           type="text"
-          autoFocus
           value={last}
           onChangeText={(text) => setLastName(text)}
+          cursorColor= '#311E15'
+          ref={ref_input2}
+          onSubmitEditing={() => ref_input3.current.focus()}
         />
         <TextInput
           style={{ color: "#000000", fontSize: 18, marginTop: 20 }}
-          placeholderTextColor={"#F3DACC"}
+          placeholderTextColor={"#311E15"}
           placeholder="Mess ID"
           type="text"
           value={messid}
           onChangeText={(text) => setMessId(text)}
+          cursorColor= '#311E15'
+          ref={ref_input3}
+          onSubmitEditing={() => ref_input4.current.focus()}
         />
         <TextInput
           style={{ color: "#000000", fontSize: 18, marginTop: 20 }}
-          placeholderTextColor={"#F3DACC"}
+          placeholderTextColor={"#311E15"}
           placeholder="Password"
           type="text"
           value={password}
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
+          cursorColor= '#311E15'
+          ref={ref_input4}
         />
       </View>
       <View style={{ flexDirection: "row", marginTop: "5%" }}>
@@ -246,5 +259,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 2,
+  },
+  searchSection: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
 });
