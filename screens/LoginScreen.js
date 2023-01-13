@@ -20,6 +20,7 @@ const LoginScreen = ({navigation}) => {
     //   alert('All fields are mandatory')
     //   setSubmitLoading(false)
     // }
+    
   }
   // const clearInputFields = () => {
   //   // alert('Successfully Logged in')

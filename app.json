@@ -18,13 +18,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.saurabh5.messStudentApp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "package": "com.saurabh5.messStudentApp",
       "permissions": [ "WRITE_EXTERNAL_STORAGE", "READ_EXTERNAL_STORAGE" ]
     },
     "web": {

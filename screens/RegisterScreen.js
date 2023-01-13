@@ -2,6 +2,9 @@ import {StatusBar} from 'expo-status-bar'
 import React, {useLayoutEffect, useState} from 'react'
 import {StyleSheet, View, Image, TouchableOpacity,TextInput, Keyboard} from 'react-native'
 import {Text} from 'react-native-elements'
+import axios from 'axios';
+// import firebase from 'firebase/app'
+// import messaging from '@react-native-firebase/messaging';
 
 const RegisterScreen = ({navigation}) => {
   const [first, setFirstName] = useState('')
@@ -24,6 +27,19 @@ const RegisterScreen = ({navigation}) => {
     setFullName('')
     setEmail('')
     setPassword('')
+  }
+
+  const signUp = async () => {
+    try {
+        // await messaging().registerDeviceForRemoteMessages();
+        // const token = await messaging().getToken();
+
+        await axios.post('http://192.168.220.50:5000/api/student/register', 
+        { 'firstName': first, 'lastName': last, 'sid': messid, 'password': password });
+
+    } catch (err) {
+        console.log(err.response.data)
+    }
   }
 
   return (
@@ -59,7 +75,7 @@ const RegisterScreen = ({navigation}) => {
           onChangeText={(text) => setLastName(text)}
         />
         <TextInput
-          style={{color: '#FFFFFF', fontSize: 18, marginTop: 20}}
+          style={{color: '#000000', fontSize: 18, marginTop: 20}}
           placeholderTextColor={'#F3DACC'}
           placeholder='Mess ID'
           type='text'
@@ -67,7 +83,7 @@ const RegisterScreen = ({navigation}) => {
           onChangeText={(text) => setMessId(text)}
         />
         <TextInput
-          style={{color: '#FFFFFF', fontSize: 18, marginTop: 20}}
+          style={{color: '#000000', fontSize: 18, marginTop: 20}}
           placeholderTextColor={'#F3DACC'}
           placeholder='Password'
           type='text'
@@ -81,7 +97,7 @@ const RegisterScreen = ({navigation}) => {
         <TouchableOpacity
           style={styles.add}
           loading={submitLoading}
-        //   onPress={signUp}
+          onPress={signUp}
         > 
         <Text style={{color: 'white', paddingHorizontal: 15, paddingVertical: 15, marginLeft: 15, fontSize: 16}}> Register </Text>
         </TouchableOpacity>
