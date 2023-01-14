@@ -22,14 +22,13 @@ import { host } from "../ip";
 const HomeScreen = ({ route, navigation }) => {
   console.log(route.params);
   const { sid } = route.params;
+  const [monthExpense, setMonthExpense] = useState(0);
+
   const [student, setStudent] = useState({
     firstName: "Chaitravi",
     lastName: "Chalke",
     balance: 20000,
   });
-  const [totalBalance, setTotalBalance] = useState("₹ 20,000");
-  const [confirm, setConfirm] = useState(false);
-  const [reset, setReset] = useState(false);
 
   const [breakfast, setBreakfast] = useState("");
   const [lunch, setLunch] = useState("");
@@ -95,12 +94,20 @@ const HomeScreen = ({ route, navigation }) => {
     axios
       .get(`${host}/api/setting/menu`)
       .then((response) => {
-        setBreakfast(response.data[days[today.getDay()]]["breakfast"]["dish"]);
-        setLunch(response.data[days[today.getDay()]]["lunch"]["dish"]);
-        setDinner(response.data[days[today.getDay()]]["dinner"]["dish"]);
+        setBreakfast(response.data[days[today.getDay()-1]]["breakfast"]["dish"]);
+        setLunch(response.data[days[today.getDay()-1]]["lunch"]["dish"]);
+        setDinner(response.data[days[today.getDay()-1]]["dinner"]["dish"]);
       })
       .catch((error) => console.log(error));
-  }, []);
+
+        axios
+        .get(`${host}/api/student/bill/${sid}/${today.getMonth()}`)
+        .then((response) => {
+          setMonthExpense(response.data.expense);
+      //    console.log(response.data.expense);
+        })
+        .catch((error) => console.log(error));
+  }, [monthExpense, student.balance, sid]);
 
   const MainContainer = styled.View`
     background-color: white;
@@ -181,22 +188,27 @@ const HomeScreen = ({ route, navigation }) => {
               </Text>
             </View>
             <View style={{ flexDirection: "row", marginTop: "4%" }}>
-              <Text
-                style={{ color: "#311E15", fontWeight: "600", fontSize: 20 }}
-              >
-                Deposit Balance
-              </Text>
-              {/* <Ionicons name='people' size={24} color='#311E15' style={{marginLeft: '2%'}}/> */}
-              <Fontisto
-                name="wallet"
-                size={22}
-                color="#311E15"
-                style={{ marginLeft: "2%" }}
-              />
+                <Text
+                  style={{ color: "#311E15", fontWeight: "600", fontSize: 20 }}
+                >
+                  Deposit Balance
+                </Text>
+                {/* <Ionicons name='people' size={24} color='#311E15' style={{marginLeft: '2%'}}/> */}
+                <Fontisto
+                  name="wallet"
+                  size={22}
+                  color="#311E15"
+                  style={{ marginLeft: "2%" }}
+                />
             </View>
-            <Text h3 style={{ color: "#311E15", marginTop: 10 }}>
-              {student.balance}
-            </Text>
+            <View style={{ flexDirection: "row"}}>
+              <Text h3 style={{ color: "#311E15", marginTop: 10 }}>
+                {student.balance - monthExpense}
+              </Text>
+              <Text h6 style={{ color: "#311E15", marginTop: '8%', marginLeft: 5 }}>
+                {"("} {monthExpense} {")"}
+              </Text>
+            </View>
           </View>
         </View>
         <View

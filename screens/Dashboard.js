@@ -50,7 +50,8 @@ const Dashboard = ({route, navigation}) => {
           axios
           .get(`${host}/api/student/bill/${sid}/${today.getMonth()}`)
           .then((response) => {
-           console.log(response.data);
+            setMonthExpense(response.data.expense);
+        //    console.log(response.data.expense);
           })
           .catch((error) => console.log(error));
       }, [sid]);

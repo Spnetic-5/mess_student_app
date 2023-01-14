@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Switch, ToastAndroid, TextInput } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Modal, Switch, ToastAndroid, TextInput, Image } from "react-native";
 import styled from "styled-components/native";
 import QRCode from "react-native-qrcode-svg";
 import { Feather, Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
@@ -16,6 +16,7 @@ const QRScanner = ({ route, navigation }) => {
 
   const [status, setStatus] = useState(1);
   const [wantChicken, setWantChicken] = useState(false);
+  const [genBill, setGenBill] = useState(false);
   const [chickenCount, setChickenCount] = useState(2);
   const [student, setStudent] = useState({
     firstName: "",
@@ -73,14 +74,14 @@ const QRScanner = ({ route, navigation }) => {
       axios
         .post(`${host}/api/entry/nonveg`, {
           sid,
-          numberOfPieces:chickenCount,
+          numberOfPieces: chickenCount,
         })
         .then(function (response) {
           console.log(response);
           if (response.status === 201) {
             // console.log(response.status);
             alert("Data has been saved!");
-            
+
           } else {
             alert("Please try again later");
           }
@@ -311,7 +312,79 @@ const QRScanner = ({ route, navigation }) => {
               }}
             />
           </View>
-
+          <Modal
+            animationType='slide'
+            transparent={true}
+            visible={genBill}
+          >
+            <View style={styles.centeredViewNew1}>
+              <View style={styles.modalViewNew1}>
+                <Image
+                  style={{
+                    marginTop: 10,
+                    width: 75,
+                    height: 75,
+                    alignSelf: 'center',
+                    resizeMode: 'contain'
+                  }}
+                  source={require('../assets/bill.png')}
+                />
+                <Text style={{ fontSize: 16, marginTop: 10, fontWeight: 'bold', textAlign: 'center', color: '#311E15' }}>
+                  VJTI Mess Bill: Jan 2023 📑️
+                </Text>
+                <View style={{flexDirection: 'column', marginTop: 20}}>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15', margin: 5 }}>
+                      Total Veg Meals: 
+                    </Text>
+                    {/* <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15', margin: 5 }}>
+                      24
+                    </Text> */}
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#808080', margin: 5 }}>
+                      21x 70 = 1470 
+                    </Text>
+                  </View>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15', margin: 5 }}>
+                      Total Non-Veg Meals: 
+                    </Text>
+                    {/* <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15', margin: 5 }}>
+                      24
+                    </Text> */}
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#808080', margin: 5 }}>
+                      3x 120 = 360 
+                    </Text>
+                  </View>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15', margin: 5 }}>
+                      Total Guests: 
+                    </Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#808080', margin: 5 }}>
+                      5x 70 = 350
+                    </Text>
+                  </View>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#311E15', margin: 5 }}>
+                      Total Extra Food : 
+                    </Text>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: '#808080', margin: 5 }}>
+                      3x 70 = 210
+                    </Text>
+                  </View>
+                  <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', color: '#F3DACC', margin: 5, backgroundColor: 'black', padding: 5, borderRadius: 5 }}>
+                      Grand Total:   2390 
+                    </Text>
+                  </View>
+                  <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center'}} onPress={() => setGenBill(false)}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', color: 'green', margin: 5 }}>
+                      Thanks!
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
           {wantChicken && (
             <View style={{ marginHorizontal: 20 }}>
               <Text
@@ -377,7 +450,7 @@ const QRScanner = ({ route, navigation }) => {
                 <TouchableOpacity
                   style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginHorizontal: 5 }}
                   activeOpacity={0.5}
-                  onPress={() => { }}
+                  onPress={() => setGenBill(true)}
                 >
                   <FontAwesome5 name="file-invoice" size={24} color="#F3DACC" style={{ paddingVertical: 10, marginLeft: 10 }} />
                   <Text style={{
@@ -420,5 +493,22 @@ const styles = StyleSheet.create({
     borderRadius: 200,
     zIndex: 1,
     backgroundColor: "#311E15",
+  },
+  centeredViewNew1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '10%'
+  },
+  modalViewNew1: {
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    padding: 10,
+    width: '80%',
+    elevation: 50,
+    shadowColor: '#AAA',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
   },
 });
