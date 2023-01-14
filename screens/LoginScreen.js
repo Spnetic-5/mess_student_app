@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -16,19 +16,9 @@ const LoginScreen = ({ navigation }) => {
   const [sid, setSid] = useState("");
   const [password, setPassword] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
+  const ref_input2 = useRef();
 
   const signIn = () => {
-    // navigation.replace("Home");
-    // if (email && setEmail) {
-    //   setSubmitLoading(true)
-    //   auth
-    //     .signInWithEmailAndPassword(email, password)
-    //     .then(() => clearInputFields())
-    //     .catch((error) => alert(error.message) & setSubmitLoading(false))
-    // } else {
-    //   alert('All fields are mandatory')
-    //   setSubmitLoading(false)
-    // }
     try {
       // await messaging().registerDeviceForRemoteMessages();
       // const token = await messaging().getToken();
@@ -57,27 +47,8 @@ const LoginScreen = ({ navigation }) => {
       console.log(err.response);
     }
   };
-  // const clearInputFields = () => {
-  //   // alert('Successfully Logged in')
-  //   navigation.replace('Home')
-  //   setSubmitLoading(false)
-  //   setEmail('')
-  //   setPassword('')
-  // }
 
   const [loading, setLoading] = useState(false);
-
-  //   useEffect(() => {
-  //     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-  //       if (authUser) {
-  //         navigation.replace('Home')
-  //         setLoading(false)
-  //       } else {
-  //         setLoading(false)
-  //       }
-  //     })
-  //     return unsubscribe
-  //   }, [])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -127,6 +98,8 @@ const LoginScreen = ({ navigation }) => {
                 placeholderTextColor={"#311E15"}
                 value={sid}
                 onChangeText={(text) => setSid(text)}
+                onSubmitEditing={() => ref_input2.current.focus()}
+                ref={ref_input2}
               />
               <TextInput
                 type="password"
