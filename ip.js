@@ -1,2 +1,2 @@
 export const host =
-  "http://06cd-2409-4040-d0d-fc99-7db1-9fdd-b402-7a40.ngrok.io";
+  "http://d588-2409-4040-d0d-fc99-5bfd-bfb4-1e2d-e7ea.ngrok.io";

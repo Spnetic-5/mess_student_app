@@ -5,14 +5,55 @@ import CustomTile from '../components/CustomTile';
 import {Text} from 'react-native-elements'
 import {Ionicons} from '@expo/vector-icons'
 import styled from 'styled-components/native';
+import axios from 'axios';
+import { host } from "../ip";
 
-const Dashboard = ({navigation}) => {
+const Dashboard = ({route, navigation}) => {
+    const { sid } = route.params;
+    const [monthExpense, setMonthExpense] = useState(0);
+    const [totalEntries, setTotalEntries] = useState(0);
+    const [totalGuests, setTotalGuests] = useState(0);
+    const [totalExtraDishes, setTotalExtraDishes] = useState(0);
 
     useLayoutEffect(() => {
         navigation.setOptions({
         title: 'Dashboard',
         })
     }, []);
+
+    let today = new Date();
+
+    const [student, setStudent] = useState({
+        firstName: "",
+        lastName: ""
+    });
+
+    useEffect(() => {
+        axios
+          .get(`${host}/api/student/${sid}`)
+          .then((response) => {
+            // console.log(response);
+            setStudent(response?.data?.student);
+           })
+          .catch((error) => console.log(error));
+
+          axios
+          .get(`${host}/api/student/monthly-stats/${sid}`)
+          .then((response) => {
+            setTotalExtraDishes(response.data.extraFood);
+            setTotalGuests(response.data.guests);
+            setTotalEntries(response.data.totalMeals);
+            // setStudent();
+          })
+          .catch((error) => console.log(error));
+          
+          axios
+          .get(`${host}/api/student/bill/${sid}/${today.getMonth()}`)
+          .then((response) => {
+           console.log(response.data);
+          })
+          .catch((error) => console.log(error));
+      }, [sid]);
 
     const [checks, setChecks] = useState({});
 
@@ -67,7 +108,7 @@ const Dashboard = ({navigation}) => {
                 style={{flexDirection: 'row', marginLeft: '10%', marginTop: '-18%', zIndex: 5}}>
             <TouchableOpacity
                 activeOpacity={0.5}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Home', {sid: sid})}
             >
                 <Ionicons name="chevron-back" size={25} color="#F3DACC" />
             </TouchableOpacity>
@@ -111,26 +152,26 @@ const Dashboard = ({navigation}) => {
             <View style={styles.month_containers}>
                 <CustomTile
                     title="Month's Expense"
-                    number='4,500'
+                    number={monthExpense}
                     icon='money'
                 />
             </View>
             <View style={styles.stat_containers}>
                 <CustomTile
-                    title='Total Meals'
-                    number='23'
+                    title='Total Entries'
+                    number={totalEntries}
                     icon='restaurant-menu'
                 />
                 <CustomTile
                     title='Total Guests'
-                    number='4'
+                    number={totalGuests}
                     icon='person'
                 />
             </View>
             <View style={styles.stat_containers}>
                 <CustomTile
                     title='Total Extra Dishes'
-                    number='3'
+                    number={totalExtraDishes}
                     icon='food-turkey'
                 />
             </View>

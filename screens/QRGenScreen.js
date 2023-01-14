@@ -2,19 +2,27 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Switch, ToastAndroid, TextInput } from "react-native";
 import styled from "styled-components/native";
 import QRCode from "react-native-qrcode-svg";
-import { useNavigation } from "@react-navigation/native";
 import { Feather, Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 import CounterInput from "react-native-counter-input";
 import { Permissions } from 'expo';
+import axios from "axios";
+import { host } from "../ip";
 
-export default function QRScanner() {
-  const navigation = useNavigation();
+const QRScanner = ({ route, navigation }) => {
+  const { sid } = route.params;
+
   const [status, setStatus] = useState(1);
   const [wantChicken, setWantChicken] = useState(false);
-  const [chickenCount, setChickenCount] = useState(0);
+  const [chickenCount, setChickenCount] = useState(2);
+  const [student, setStudent] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
+  let today = new Date().toLocaleDateString('en-GB');
 
   let qr_ref = null;
   const saveQrToDisk = () => {
@@ -45,8 +53,44 @@ export default function QRScanner() {
       alert("No ID found!")
     }
   }
-  async function downloadImage(dataUri) {
 
+  useEffect(() => {
+    axios
+      .get(`${host}/api/student/${sid}`)
+      .then((response) => {
+        // console.log(response);
+        setStudent(response?.data?.student);
+        // console.log(student.balance)
+        // {"__v": 0, "_id": "63c1d5ed366249ee2b6f908f", "balance": 0, "expense": 0, 
+        // "fcmToken": "token", "firstName": "Chai", "lastName": "Chai", "password": "25", "sid": "25", "status": "pending"}
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  const saveChicken = () => {
+
+    try {
+      axios
+        .post(`${host}/api/entry/nonveg`, {
+          sid,
+          numberOfPieces:chickenCount,
+        })
+        .then(function (response) {
+          console.log(response);
+          if (response.status === 201) {
+            // console.log(response.status);
+            alert("Data has been saved!");
+            
+          } else {
+            alert("Please try again later");
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } catch (err) {
+      console.log(err.response);
+    }
   }
 
   const MainContainer = styled.View`
@@ -76,7 +120,7 @@ export default function QRScanner() {
           <TouchableOpacity
             style={{ alignSelf: 'flex-start' }}
             activeOpacity={0.5}
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("Home", { sid: sid })}
           >
             <Ionicons name="chevron-back" size={25} color="#F3DACC" />
           </TouchableOpacity>
@@ -116,7 +160,7 @@ export default function QRScanner() {
               alignSelf: "center",
             }}
           >
-            Saurabh Powar
+            {student?.firstName + " " + student?.lastName}
           </Text>
           <Text
             style={{
@@ -128,10 +172,10 @@ export default function QRScanner() {
             }}
           >
             {" "}
-            Roll No. 191060053{" "}
+            {student.sid}{" "}
           </Text>
         </View>
-        {status == 1 ? (
+        {student.status == "approved" ? (
           <View
             style={{
               backgroundColor: "green",
@@ -212,7 +256,7 @@ export default function QRScanner() {
             // value={QRTextValue ? QRTextValue : 'NA'}
             logo={require("../assets/qr_logo.png")}
             logoBackgroundColor="transparent"
-            value="Lodu Utsav 191060052 12012023"
+            value={`${student.firstName} ${student.lastName} ${student.sid} ${today}`}
             getRef={(qr) => {
               qr_ref = qr
             }}
@@ -262,7 +306,7 @@ export default function QRScanner() {
               onValueChange={(value) => {
                 setWantChicken(value);
                 if (!value) {
-                  setChickenCount('');
+                  setChickenCount(0);
                 }
               }}
             />
@@ -294,7 +338,7 @@ export default function QRScanner() {
                 <TouchableOpacity
                   style={{ backgroundColor: '#311E15', borderRadius: 10, height: 40, alignSelf: 'center', marginLeft: 5 }}
                   activeOpacity={0.5}
-                  onPress={() => { }}
+                  onPress={() => saveChicken()}
                 >
                   <Text style={{
                     color: "#F3DACC",
@@ -358,6 +402,8 @@ export default function QRScanner() {
     </View>
   );
 }
+
+export default QRScanner;
 
 const styles = StyleSheet.create({
   container: {

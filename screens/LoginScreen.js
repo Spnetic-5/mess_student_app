@@ -39,10 +39,10 @@ const LoginScreen = ({ navigation }) => {
           password,
         })
         .then(function (response) {
-          console.log(response);
+          // console.log(response);
           if (response.status === 200) {
-            console.log(response.status);
-            navigation.navigate("Home", { sid: response.data.token });
+            // console.log(response.status);
+            navigation.navigate("Home", { sid: response?.data?.token });
           } else {
             navigation.navigate("Register");
           }

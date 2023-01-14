@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Keyboard,
-  Modal,
+  Modal
 } from "react-native";
 import { Text } from "react-native-elements";
 import axios from "axios";
@@ -52,11 +52,11 @@ const RegisterScreen = ({ navigation }) => {
           password: password,
         })
         .then(function (response) {
-          console.log(response);
+          // console.log(response);
           setSuccess(true);
           // setEntryModal(true);
           // setTimeout(navigation.navigate("Home"), 2000);
-          navigation.navigate("Home", { sid: response.data.token });
+          navigation.navigate("Login");
         })
         .catch(function (error) {
           console.log(error);

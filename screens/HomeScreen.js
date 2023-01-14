@@ -23,13 +23,17 @@ const HomeScreen = ({ route, navigation }) => {
   console.log(route.params);
   const { sid } = route.params;
   const [student, setStudent] = useState({
-    firstName: "",
-    lastName: "",
-    balance: 0,
+    firstName: "Chaitravi",
+    lastName: "Chalke",
+    balance: 20000,
   });
   const [totalBalance, setTotalBalance] = useState("₹ 20,000");
   const [confirm, setConfirm] = useState(false);
   const [reset, setReset] = useState(false);
+
+  const [breakfast, setBreakfast] = useState("");
+  const [lunch, setLunch] = useState("");
+  const [dinner, setDinner] = useState("");
 
   const [filter, setFilter] = useState([
     { id: "1", data: "Saurabh Powar", rollno: "191060053", time: "14:23" },
@@ -78,10 +82,25 @@ const HomeScreen = ({ route, navigation }) => {
     axios
       .get(`${host}/api/student/${sid}`)
       .then((response) => {
-        setStudent(response.data.student);
+        // console.log(response);
+        setStudent(response?.data?.student);
+        // console.log(student.balance)
+        // {"__v": 0, "_id": "63c1d5ed366249ee2b6f908f", "balance": 0, "expense": 0, 
+        // "fcmToken": "token", "firstName": "Chai", "lastName": "Chai", "password": "25", "sid": "25", "status": "pending"}
       })
       .catch((error) => console.log(error));
   }, [sid]);
+
+  useEffect(() => {
+    axios
+      .get(`${host}/api/setting/menu`)
+      .then((response) => {
+        setBreakfast(response.data[days[today.getDay()]]["breakfast"]["dish"]);
+        setLunch(response.data[days[today.getDay()]]["lunch"]["dish"]);
+        setDinner(response.data[days[today.getDay()]]["dinner"]["dish"]);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const MainContainer = styled.View`
     background-color: white;
@@ -118,7 +137,7 @@ const HomeScreen = ({ route, navigation }) => {
                 <Text
                   style={{ fontSize: 25, fontWeight: "600", color: "#FFFFFF" }}
                 >
-                  {student.firstName} {student.lastName}
+                  {student?.firstName} {student?.lastName}
                 </Text>
               </View>
               <Image
@@ -193,17 +212,17 @@ const HomeScreen = ({ route, navigation }) => {
         <ScrollView style={{ marginTop: "2%" }}>
           <MenuTile
             title="Breakfast"
-            menu="Poha, Bread Omlet and Tea"
+            menu={breakfast}
             image={0}
           />
           <MenuTile
             title="Lunch"
-            menu="Paneer Masala, Chapati, Dal Fry and Rice"
+            menu={lunch}
             image={1}
           />
           <MenuTile
             title="Dinner"
-            menu="Pav Bhaaji, Veg Fried Rice, Gulab Jamun"
+            menu={dinner}
             image={2}
           />
         </ScrollView>
@@ -211,7 +230,7 @@ const HomeScreen = ({ route, navigation }) => {
           <TouchableOpacity
             style={{ marginLeft: "-10%" }}
             activeOpacity={0.5}
-            onPress={() => navigation.navigate("Dashboard")}
+            onPress={() => navigation.navigate("Dashboard", { sid: sid })}
           >
             {/* <Ionicons name='ios-home' size={30} color='#FFFFFF' /> */}
             <Ionicons
@@ -223,7 +242,7 @@ const HomeScreen = ({ route, navigation }) => {
           <TouchableOpacity
             style={{ marginRight: "-10%" }}
             activeOpacity={0.5}
-            onPress={() => navigation.navigate("All")}
+            onPress={() => navigation.navigate("Menu", { sid: sid })}
           >
             <MaterialIcons name="restaurant-menu" size={30} color="#FFFFFF" />
           </TouchableOpacity>
@@ -241,7 +260,7 @@ const HomeScreen = ({ route, navigation }) => {
         >
           <TouchableOpacity
             style={styles.plusButton}
-            onPress={() => navigation.navigate("QRGen")}
+            onPress={() => navigation.navigate("QRGen", {sid: sid})}
             activeOpacity={0.5}
           >
             <Ionicons name="md-qr-code-outline" size={32} color="#FFFFFF" />

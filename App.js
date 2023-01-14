@@ -9,7 +9,7 @@ import HomeScreen from './screens/HomeScreen'
 import AddDetailsScreen from './screens/AddDetailsScreen'
 import UpdateScreen from './screens/UpdateScreen'
 import QRGenScreen from './screens/QRGenScreen'
-import AllTransactions from './screens/AllTransactions'
+import MenuScreen from './screens/MenuScreen'
 import Dashboard from './screens/Dashboard'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
@@ -30,7 +30,7 @@ export default function App() {
         <Stack.Screen name='AddDetails' component={AddDetailsScreen} />
         <Stack.Screen name='QRGen' component={QRGenScreen} />
         <Stack.Screen name='Update' component={UpdateScreen} />
-        <Stack.Screen name='All' component={AllTransactions} />
+        <Stack.Screen name='Menu' component={MenuScreen} />
         <Stack.Screen name='Dashboard' component={Dashboard} />
       </Stack.Navigator>
     </NavigationContainer>
